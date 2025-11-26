@@ -13,11 +13,11 @@ public class BookService {
         this.repo = repo;
     }
 
-    public Book createBook(Book book){
+    public Book create(Book book){
         return repo.save(book);
     }
 
-    public List<Book> getAllBooks(){return repo.findAll();}
+    public List<Book> findAll(){return repo.findAll();}
 
     public Book findById(Long id){
         return repo.findById(id).orElseThrow(() -> new IllegalArgumentException("Book with id " + id + " not found"));
@@ -31,5 +31,11 @@ public class BookService {
         existingBook.setPublisher(book.getPublisher());
         existingBook.setPrice(book.getPrice());
         return repo.save(existingBook);
+    }
+
+    public Book delete(Long id){
+        Book existingBook = findById(id);
+        repo.delete(existingBook);
+        return existingBook;
     }
 }
