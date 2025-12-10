@@ -1,5 +1,6 @@
-package ie.atu.bookshopproject;
+package ie.atu.bookshopproject.Repository;
 
+import ie.atu.bookshopproject.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
