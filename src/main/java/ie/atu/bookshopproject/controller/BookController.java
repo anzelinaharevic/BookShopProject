@@ -2,6 +2,7 @@ package ie.atu.bookshopproject.controller;
 
 import ie.atu.bookshopproject.Service.BookService;
 import ie.atu.bookshopproject.model.Book;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book createBook(@RequestBody Book book) {
+    public Book createBook(@Valid @RequestBody Book book) {
         return bookService.create(book);
     }
 
