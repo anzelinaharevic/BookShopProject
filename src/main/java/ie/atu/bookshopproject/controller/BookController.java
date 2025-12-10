@@ -1,5 +1,7 @@
-package ie.atu.bookshopproject;
+package ie.atu.bookshopproject.controller;
 
+import ie.atu.bookshopproject.Service.BookService;
+import ie.atu.bookshopproject.model.Book;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
