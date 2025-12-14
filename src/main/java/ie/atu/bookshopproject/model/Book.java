@@ -23,6 +23,5 @@ public class Book {
     @NotBlank
     private String publisher;
     @Positive
-    @NotBlank
     private Double price;
 }
