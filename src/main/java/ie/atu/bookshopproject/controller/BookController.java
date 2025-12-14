@@ -1,5 +1,7 @@
 package ie.atu.bookshopproject.controller;
 
+import ie.atu.bookshopproject.DTO.UserDTO;
+import ie.atu.bookshopproject.FeignClient.UserClient;
 import ie.atu.bookshopproject.Service.BookService;
 import ie.atu.bookshopproject.model.Book;
 import jakarta.validation.Valid;
@@ -12,8 +14,12 @@ import java.util.List;
 @RequestMapping("/api/books")
 public class BookController {
     private final BookService bookService;
+    private final UserClient userClient;
 
-    public BookController(BookService bookService) {this.bookService = bookService;}
+    public BookController(BookService bookService, UserClient userClient) {
+        this.bookService = bookService;
+        this.userClient = userClient;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -41,4 +47,11 @@ public class BookController {
     public Book deleteBook(@PathVariable Long id){
         return bookService.delete(id);
     }
+
+    @GetMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserDTO getUserId(@PathVariable Long id) {
+        return userClient.getUserID(id); // Call the injected client
+    }
+
 }
