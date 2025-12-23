@@ -1,5 +1,6 @@
 package ie.atu.bookshopproject.controller;
 
+import feign.Response;
 import ie.atu.bookshopproject.DTO.UserDTO;
 import ie.atu.bookshopproject.FeignClient.UserClient;
 import ie.atu.bookshopproject.Service.BookService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/books")
@@ -33,26 +35,43 @@ public class BookController {
     public List<Book> getAllBooks() {return bookService.findAll();}
 
     @GetMapping("/{id}")
-    public Book byId(@PathVariable Long id){
-        return bookService.findById(id);
+    public ResponseEntity<Book> byId(@PathVariable Long id){
+        Optional<Book> maybe = bookService.findById(id);
+        if(maybe.isPresent()) {
+            return ResponseEntity.ok(maybe.get());
+        }
+        else  {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Book updateBook(@PathVariable Long id, @RequestBody Book book) {
-        return bookService.updateBook(id, book);
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
+        Optional<Book> maybe = bookService.findById(id);
+        if(maybe.isPresent()) {
+            return ResponseEntity.ok(maybe.get());
+        }
+        else   {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Book deleteBook(@PathVariable Long id){
-        return bookService.delete(id);
+    public ResponseEntity<Book> deleteBook(@RequestParam Long id){
+        Optional<Book> maybe = bookService.findById(id);
+        if(maybe.isPresent()) {
+            return ResponseEntity.noContent().build();
+        }
+        else  {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/user/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserDTO> getUserId(@PathVariable("id") Long Loginid) {
-        return ResponseEntity.ok(userClient.getUserID(Loginid).getBody()); // Call the injected client
+    public ResponseEntity<UserDTO> getUserId(@PathVariable("id") Long loginId) {
+        return ResponseEntity.ok(userClient.getUserID(loginId)); // Call the injected client
     }
 
 }
