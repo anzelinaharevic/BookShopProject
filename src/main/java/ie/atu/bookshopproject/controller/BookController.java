@@ -6,6 +6,7 @@ import ie.atu.bookshopproject.Service.BookService;
 import ie.atu.bookshopproject.model.Book;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,8 +51,8 @@ public class BookController {
 
     @GetMapping("/user/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO getUserId(@PathVariable Long id) {
-        return userClient.getUserID(id); // Call the injected client
+    public ResponseEntity<UserDTO> getUserId(@PathVariable("id") Long Loginid) {
+        return ResponseEntity.ok(userClient.getUserID(Loginid).getBody()); // Call the injected client
     }
 
 }
