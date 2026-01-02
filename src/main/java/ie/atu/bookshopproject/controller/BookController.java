@@ -69,9 +69,9 @@ public class BookController {
         }
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/GetUser/{id}")
     public ResponseEntity<UserDTO> getUserId(@PathVariable("id") Long loginId) {
-        return ResponseEntity.ok(userClient.getUserID(loginId)); // Call the injected client
+        return ResponseEntity.ok(userClient.getUserID(loginId));
     }
 
 }

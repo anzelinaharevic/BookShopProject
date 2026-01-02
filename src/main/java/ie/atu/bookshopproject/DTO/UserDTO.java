@@ -8,14 +8,6 @@ public class UserDTO {
 
     public UserDTO() {}
 
-    // Constructor without ID or personDetails
-    public UserDTO(String username, String password, Boolean admin) {
-        this.username = username;
-        this.password = password;
-        this.admin = admin;
-    }
-
-    // Full constructor
     public UserDTO(Long loginId, String username, String password, Boolean admin) {
         this.loginId = loginId;
         this.username = username;
