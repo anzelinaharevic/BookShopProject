@@ -23,6 +23,13 @@ public class UserDTO {
         this.admin = admin;
     }
 
+    public Long getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(Long loginId) {
+        this.loginId = loginId;
+    }
 
     public String getUsername() {
         return username;
