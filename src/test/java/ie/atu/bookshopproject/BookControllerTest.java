@@ -126,7 +126,7 @@ class BookControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    /*@Test
+    @Test
     void testGetPaymentById() throws Exception {
         PaymentDTO payment = new PaymentDTO(
                 1L, "100", "Cash", "Euro"
@@ -134,13 +134,10 @@ class BookControllerTest {
 
         when(paymentClient.getPaymentID(1L)).thenReturn(payment);
 
-        mockMvc.perform(get("/payment/1"))
+        mockMvc.perform(get("/api/books/payment/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.amount").value("100"))
-                .andExpect(jsonPath("$.paymentMethod").value("Cash"))
-                .andExpect(jsonPath("$.currency").value("Euro"));
-    }*/
+                .andExpect(jsonPath("$.paymentId").value(1));
+    }
 }
 
 
