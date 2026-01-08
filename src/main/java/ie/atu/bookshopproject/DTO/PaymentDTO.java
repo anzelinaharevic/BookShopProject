@@ -38,7 +38,6 @@ public class PaymentDTO {
         this.paymentId = paymentId;
     }
 
-
     public Long getBookID() {
         return bookID;
     }
