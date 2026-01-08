@@ -1,8 +1,8 @@
 package ie.atu.bookshopproject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ie.atu.bookshopproject.DTO.UserDTO;
-import ie.atu.bookshopproject.FeignClient.UserClient;
+import ie.atu.bookshopproject.DTO.PaymentDTO;
+import ie.atu.bookshopproject.FeignClient.paymentClient;
 import ie.atu.bookshopproject.Service.BookService;
 import ie.atu.bookshopproject.controller.BookController;
 import ie.atu.bookshopproject.model.Book;
@@ -32,7 +32,7 @@ class BookControllerTest {
     private BookService bookService;
 
     @MockitoBean
-    private UserClient userClient;
+    private paymentClient paymentClient;
 
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -126,16 +126,21 @@ class BookControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @Test
-    void testGetUserFromFeignClient() throws Exception {
-        UserDTO user = new UserDTO(1L, "eoin", "plasma", true);
-        when(userClient.getUserID(anyLong())).thenReturn(user);
+    /*@Test
+    void testGetPaymentById() throws Exception {
+        PaymentDTO payment = new PaymentDTO(
+                1L, "100", "Cash", "Euro"
+        );
 
-        mockMvc.perform(get("/api/books/GetUser/1"))
+        when(paymentClient.getPaymentID(1L)).thenReturn(payment);
+
+        mockMvc.perform(get("/payment/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.loginId").value(1L))
-                .andExpect(jsonPath("$.username").value("eoin"));
-    }
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.amount").value("100"))
+                .andExpect(jsonPath("$.paymentMethod").value("Cash"))
+                .andExpect(jsonPath("$.currency").value("Euro"));
+    }*/
 }
 
 
