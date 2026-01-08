@@ -28,7 +28,7 @@ public class BookService {
             return book;
         }
         else{
-            throw new BookNotFound("Book not found" + id + "not found");
+            throw new BookNotFound("Book with id " + id + " not found");
         }
     }
 
