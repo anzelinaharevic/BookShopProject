@@ -25,7 +25,6 @@ public class BookController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public Book createBook(@Valid @RequestBody Book book) {
         return bookService.create(book);
     }
@@ -59,7 +58,7 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<Book> deleteBook(@RequestParam Long id){
+    public ResponseEntity<Book> deleteBook(@PathVariable Long id){
         Optional<Book> maybe = bookService.findById(id);
         if(maybe.isPresent()) {
             return ResponseEntity.noContent().build();
@@ -69,7 +68,7 @@ public class BookController {
         }
     }
 
-    @GetMapping("/GetUser/{id}")
+    @GetMapping("/{id}/user")
     public ResponseEntity<UserDTO> getUserId(@PathVariable("id") Long loginId) {
         return ResponseEntity.ok(userClient.getUserID(loginId));
     }
