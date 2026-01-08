@@ -1,8 +1,7 @@
 package ie.atu.bookshopproject.controller;
 
-import feign.Response;
-import ie.atu.bookshopproject.DTO.UserDTO;
-import ie.atu.bookshopproject.FeignClient.UserClient;
+import ie.atu.bookshopproject.DTO.PaymentDTO;
+import ie.atu.bookshopproject.FeignClient.paymentClient;
 import ie.atu.bookshopproject.Service.BookService;
 import ie.atu.bookshopproject.model.Book;
 import jakarta.validation.Valid;
@@ -17,11 +16,11 @@ import java.util.Optional;
 @RequestMapping("/api/books")
 public class BookController {
     private final BookService bookService;
-    private final UserClient userClient;
+    private final paymentClient paymentClient;
 
-    public BookController(BookService bookService, UserClient userClient) {
+    public BookController(BookService bookService, paymentClient paymentClient) {
         this.bookService = bookService;
-        this.userClient = userClient;
+        this.paymentClient = paymentClient;
     }
 
     @PostMapping
@@ -68,9 +67,9 @@ public class BookController {
         }
     }
 
-    @GetMapping("/{id}/user")
-    public ResponseEntity<UserDTO> getUserId(@PathVariable("id") Long loginId) {
-        return ResponseEntity.ok(userClient.getUserID(loginId));
+    @GetMapping("/payment/{id}")
+    public ResponseEntity<PaymentDTO> getPaymentID(@PathVariable("id") Long paymentID) {
+        return ResponseEntity.ok(paymentClient.getPaymentID(paymentID));
     }
 
 }
