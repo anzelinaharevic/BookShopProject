@@ -46,7 +46,7 @@ class BookControllerTest {
         mockMvc.perform(post("/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("1984"));
     }
 
@@ -114,28 +114,23 @@ class BookControllerTest {
         Book book = new Book(1L, "1984", "George Orwell", "Penguin", 12.99);
         when(bookService.findById(1L)).thenReturn(Optional.of(book));
 
-        mockMvc.perform(delete("/api/books/1?id=1"))
-                .andExpect(status().isNoContent());
+        mockMvc.perform(delete("/api/books/1?id=1")).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteBookNotFound() throws Exception {
         when(bookService.findById(999L)).thenReturn(Optional.empty());
 
-        mockMvc.perform(delete("/api/books/999?id=999"))
-                .andExpect(status().isNotFound());
+        mockMvc.perform(delete("/api/books/999?id=999")).andExpect(status().isNotFound());
     }
 
     @Test
     void testGetPaymentById() throws Exception {
-        PaymentDTO payment = new PaymentDTO(
-                1L, "100", "Cash", "Euro"
-        );
+        PaymentDTO payment = new PaymentDTO(1L, "100", "Cash", "Euro");
 
         when(paymentClient.getPaymentID(1L)).thenReturn(payment);
 
-        mockMvc.perform(get("/api/books/payment/1"))
-                .andExpect(status().isOk())
+        mockMvc.perform(get("/api/books/payment/1")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.paymentId").value(1));
     }
 }

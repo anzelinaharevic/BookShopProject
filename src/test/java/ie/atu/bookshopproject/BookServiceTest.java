@@ -66,10 +66,7 @@ public class BookServiceTest {
     void findById_notFound() {
         when(bookRepository.findById(999L)).thenReturn(Optional.empty());
 
-        BookNotFound exception = assertThrows(
-                BookNotFound.class,
-                () -> bookService.findById(999L)
-        );
+        BookNotFound exception = assertThrows(BookNotFound.class, () -> bookService.findById(999L));
 
         assertEquals("Book with id 999 not found", exception.getMessage());
         verify(bookRepository).findById(999L);
@@ -99,8 +96,7 @@ public class BookServiceTest {
         Book book = new Book(null, "Title", "Author", "Pub", 10.00);
         when(bookRepository.findById(999L)).thenReturn(Optional.empty());
 
-        assertThrows(BookNotFound.class,
-                () -> bookService.updateBook(999L, book));
+        assertThrows(BookNotFound.class, () -> bookService.updateBook(999L, book));
 
         verify(bookRepository).findById(999L);
         verify(bookRepository, never()).save(any());
@@ -122,8 +118,7 @@ public class BookServiceTest {
     void deleteBook_notFound() {
         when(bookRepository.findById(999L)).thenReturn(Optional.empty());
 
-        assertThrows(BookNotFound.class,
-                () -> bookService.delete(999L));
+        assertThrows(BookNotFound.class,() -> bookService.delete(999L));
 
         verify(bookRepository).findById(999L);
         verify(bookRepository, never()).delete(any());
